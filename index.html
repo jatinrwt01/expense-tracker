@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="logo">ExpenseTracker</div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>Dashboard</li>
+          <li>Transactions</li>
+          <li>Analytics</li>
+          <li>Settings</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-navbar">
+        <h1>Dashboard</h1>
+        <div class="navbar-actions">Dark Mode</div>
+      </header>
+
+      <section class="summary-cards">
+        <div class="card">
+          <h3>Total Balance</h3>
+          <p>₹25,000</p>
+        </div>
+
+        <div class="card">
+          <h3>Total Income</h3>
+          <p>₹40,000</p>
+        </div>
+
+        <div class="card">
+          <h3>Total Expense</h3>
+          <p>₹15,000</p>
+        </div>
+      </section>
+
+      <section class="analytics">
+        <div class="chart-container">Chart Here</div>
+      </section>
+
+      <section class="bottom-section">
+        <section class="transactions">
+          <h2>Recent Transactions</h2>
+
+          <ul class="transaction-list">
+            <li class="transaction-item">
+              <div class="transaction-info">
+                <h4>Groceries</h4>
+                <p>Food • 20 May 2026</p>
+              </div>
+
+              <div class="transaction-actions">
+                <span>₹500</span>
+                <button>Delete</button>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="add-expense">
+          <h2>Add Expense</h2>
+
+          <form>
+            <input type="text" placeholder="Expense Title" />
+
+            <input type="number" placeholder="Amount" />
+
+            <select>
+              <option>Food</option>
+              <option>Transport</option>
+            </select>
+
+            <input type="date" />
+
+            <button type="submit">Add Transaction</button>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
