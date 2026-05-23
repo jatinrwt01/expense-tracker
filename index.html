@@ -60,8 +60,9 @@
 
       <section class="bottom-section">
         <section class="transactions">
+          <div class="transaction-header">
           <h2>Recent Transactions</h2>
-
+            </div>
           <ul class="transaction-list">
             <li class="transaction-item">
               <div class="transaction-info">
@@ -71,16 +72,17 @@
 
               <div class="transaction-actions">
                 <span>₹500</span>
-                <button>Delete</button>
+                <button class="btn">Delete</button>
               </div>
             </li>
           </ul>
         </section>
 
         <section class="add-expense">
+          <div class="expense-header">
           <h2>Add Expense</h2>
-
-          <form>
+            </div>
+          <form class="expense-form">
             <input type="text" placeholder="Expense Title" />
 
             <input type="number" placeholder="Amount" />
@@ -92,7 +94,7 @@
 
             <input type="date" />
 
-            <button type="submit">Add Transaction</button>
+            <button class="btn" type="submit">Add Transaction</button>
           </form>
         </section>
       </section>
