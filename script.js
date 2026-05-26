@@ -1,4 +1,4 @@
-const transactions = [];
+let transactions = [];
 
 const title = document.getElementById("expense-title");
 const amount = document.getElementById("amount");
@@ -55,6 +55,11 @@ function transactionElement(transaction) {
   buttonElement.classList.add("btn");
   amountElement.textContent = `₹${transaction.amount}`;
   buttonElement.textContent = "Delete";
+
+  buttonElement.addEventListener("click", (e) => {
+    console.log(`Delete button of ${transaction.title} clicked`);
+    deleteTransaction(transaction.id);
+  })
   rightEl.appendChild(amountElement);
   rightEl.appendChild(buttonElement);
 
@@ -62,4 +67,10 @@ function transactionElement(transaction) {
   el.appendChild(rightEl);
 
   return el;
+}
+
+
+function deleteTransaction(id){
+  transactions = transactions.filter(transaction => transaction.id !== id);
+  renderTransactions();
 }
