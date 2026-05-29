@@ -24,6 +24,7 @@ form.addEventListener("submit", (e) => {
 
   transactions.push(transaction);
   renderTransactions();
+  updateSummaryCards();
   form.reset();
 });
 
@@ -73,4 +74,25 @@ function transactionElement(transaction) {
 function deleteTransaction(id){
   transactions = transactions.filter(transaction => transaction.id !== id);
   renderTransactions();
+}
+
+
+/* ====Summary cards logic===*/
+const income = 40000;
+
+const totalExpense = document.getElementById('total-expense');
+const totalBalance = document.getElementById('total-balance');
+function updateSummaryCards(){
+  console.log(transactions);
+  const expense = transactions.reduce((accumulator, transaction)=>{
+    return accumulator + transaction.amount;
+  }, 0)
+ 
+  const balance = income - expense;
+
+  //Render total expense
+  totalExpense.textContent = `₹${expense}`;
+
+  //Render total balance
+  totalBalance.textContent = `₹${balance}`;
 }
