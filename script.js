@@ -23,6 +23,7 @@ form.addEventListener("submit", (e) => {
   };
 
   transactions.push(transaction);
+  saveTransactions();
   renderTransactions();
   updateSummaryCards();
   form.reset();
@@ -74,6 +75,8 @@ function transactionElement(transaction) {
 function deleteTransaction(id){
   transactions = transactions.filter(transaction => transaction.id !== id);
   renderTransactions();
+  saveTransactions();
+  updateSummaryCards();
 }
 
 
@@ -83,7 +86,6 @@ const income = 40000;
 const totalExpense = document.getElementById('total-expense');
 const totalBalance = document.getElementById('total-balance');
 function updateSummaryCards(){
-  console.log(transactions);
   const expense = transactions.reduce((accumulator, transaction)=>{
     return accumulator + transaction.amount;
   }, 0)
@@ -96,3 +98,28 @@ function updateSummaryCards(){
   //Render total balance
   totalBalance.textContent = `₹${balance}`;
 }
+
+
+/*====Save to localStorage===*/
+function saveTransactions(){
+  const transactionString = JSON.stringify(transactions);
+  localStorage.setItem("transactions", transactionString);
+}
+
+
+/*===Load from localStorage===*/
+function loadTransactions(){
+  const transactionString = localStorage.getItem("transactions");
+  const storedTransactions = JSON.parse(transactionString);
+  if(storedTransactions === null){
+    transactions = [];
+  } else{
+    transactions = storedTransactions;
+  }
+  renderTransactions();
+  updateSummaryCards();
+}
+
+
+
+loadTransactions();
