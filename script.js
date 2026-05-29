@@ -1,4 +1,5 @@
 let transactions = [];
+let expenseChart;
 
 const title = document.getElementById("expense-title");
 const amount = document.getElementById("amount");
@@ -26,6 +27,7 @@ form.addEventListener("submit", (e) => {
   saveTransactions();
   renderTransactions();
   updateSummaryCards();
+  renderChart();
   form.reset();
 });
 
@@ -59,7 +61,6 @@ function transactionElement(transaction) {
   buttonElement.textContent = "Delete";
 
   buttonElement.addEventListener("click", (e) => {
-    console.log(`Delete button of ${transaction.title} clicked`);
     deleteTransaction(transaction.id);
   })
   rightEl.appendChild(amountElement);
@@ -77,6 +78,7 @@ function deleteTransaction(id){
   renderTransactions();
   saveTransactions();
   updateSummaryCards();
+  renderChart();
 }
 
 
@@ -118,7 +120,49 @@ function loadTransactions(){
   }
   renderTransactions();
   updateSummaryCards();
+  renderChart();
 }
+
+
+/*===Chart Analytics logic ===*/
+
+function categoryExpenses(){
+  //transactions --> object (key:value) = (category:totalexpense)
+  const categoryWiseExpenses = {};
+  transactions.forEach((transaction)=>{
+    if(!(transaction.category in categoryWiseExpenses)){
+      categoryWiseExpenses[transaction.category] = transaction.amount;
+    } else{
+      categoryWiseExpenses[transaction.category] += transaction.amount;
+    }
+  });
+
+  return categoryWiseExpenses;
+}
+
+function renderChart(){
+  const categoryExpensesObj = categoryExpenses();
+  const labels = Object.keys(categoryExpensesObj);
+  const values = Object.values(categoryExpensesObj);
+  const ctx = document.getElementById('expense-chart');
+
+  if(expenseChart){
+   expenseChart.destroy();
+  }
+  expenseChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels : labels,
+      datasets: [{
+        label : 'Expenses',
+        data: values,
+        borderWidth: 1
+      }]
+    }
+  });
+}
+
+
 
 
 

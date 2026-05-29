@@ -182,6 +182,13 @@ body{
     border-radius: var(--radius-md);
     color: var(--text-secondary);
     min-height: 350px;
+    max-height: 350px;
+    width: 100%;
+}
+
+#expense-chart{
+    max-width: 500px;
+    max-height: 300px;
 }
 
 /*Section 3- Bottom Section*/
