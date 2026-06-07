@@ -15,6 +15,12 @@ form.addEventListener("submit", (e) => {
   const expenseCategory = category.value;
   const expenseDate = date.value;
 
+
+   if(!validateForm()){
+    return;
+  }
+
+  
   const transaction = {
     id: Date.now(),
     title: expenseTitle,
@@ -160,6 +166,43 @@ function renderChart(){
       }]
     }
   });
+}
+
+
+//Form validation
+const titleError = document.getElementById('title-error');
+const amountError = document.getElementById('amount-error');
+const dateError = document.getElementById('date-error');
+function validateForm(){
+  let isValid = true;
+
+  clearErrors();
+
+  if(title.value.trim().length == 0){
+    titleError.textContent = "Title is required";
+    isValid = false;
+  }
+
+  if(amount.value == ''){
+    amountError.textContent = "Amount is required";
+    isValid = false;
+  } else if(Number(amount.value) <= 0){
+    amountError.textContent = "Amount must be greater than zero";
+    isValid = false;
+  }
+
+  if(date.value == ''){
+    dateError.textContent = "Date is required"
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+function clearErrors(){
+  titleError.textContent = '';
+  amountError.textContent = '';
+  dateError.textContent = '';
 }
 
 

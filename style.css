@@ -271,3 +271,11 @@ select{
 .btn:hover{
     background-color: var(--primary-dark) ;
 }
+
+/*Form Validation*/
+.error-message{
+    color: red;
+    font-size: 0.85rem;
+    margin-left: 10px;
+    min-height: 18px;
+}
