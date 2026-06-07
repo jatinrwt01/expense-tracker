@@ -226,6 +226,12 @@ body{
     border-bottom: 1px solid var(--border-color);
 }
 
+.transaction-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 /*Add transaction form*/
 .add-expense{
     background-color: var(--card-background);

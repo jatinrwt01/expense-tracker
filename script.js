@@ -1,11 +1,13 @@
 let transactions = [];
 let expenseChart;
+let editingTransactionId = null;
 
 const title = document.getElementById("expense-title");
 const amount = document.getElementById("amount");
 const category = document.getElementById("category");
 const date = document.getElementById("date");
 const transactionList = document.querySelector(".transaction-list");
+const formSubmitBtn = document.getElementById('submit-form');
 
 const form = document.querySelector(".expense-form");
 form.addEventListener("submit", (e) => {
@@ -20,8 +22,8 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  
-  const transaction = {
+  if(editingTransactionId === null){
+     const transaction = {
     id: Date.now(),
     title: expenseTitle,
     amount: expenseAmount,
@@ -30,11 +32,21 @@ form.addEventListener("submit", (e) => {
   };
 
   transactions.push(transaction);
-  saveTransactions();
-  renderTransactions();
-  updateSummaryCards();
-  renderChart();
+  syncUI();
   form.reset();
+  } else{
+    const transactionToEdit = transactions.find(
+      transaction => transaction.id === editingTransactionId
+    );
+    transactionToEdit.title = title.value;
+    transactionToEdit.amount = Number(amount.value);
+    transactionToEdit.category = category.value;
+    transactionToEdit.date = date.value;
+    syncUI();
+    form.reset();
+    editingTransactionId = null;
+    formSubmitBtn.textContent = "Add Transaction";
+  }
 });
 
 function renderTransactions() {
@@ -61,16 +73,34 @@ function transactionElement(transaction) {
   const rightEl = document.createElement("div");
   rightEl.classList.add("transaction-actions");
   const amountElement = document.createElement("span");
-  const buttonElement = document.createElement("button");
-  buttonElement.classList.add("btn");
+   const editButtonElement = document.createElement("button");
+  const deleteButtonElement = document.createElement("button");
+ 
   amountElement.textContent = `₹${transaction.amount}`;
-  buttonElement.textContent = "Delete";
+  editButtonElement.classList.add('btn');
+  editButtonElement.textContent = 'Edit';
+  deleteButtonElement.classList.add("btn");
+  deleteButtonElement.textContent = "Delete";
 
-  buttonElement.addEventListener("click", (e) => {
+
+  editButtonElement.addEventListener('click', ()=>{
+    editingTransactionId = transaction.id;
+    title.value = transaction.title;
+    amount.value = transaction.amount;
+    category.value = transaction.category;
+    date.value = transaction.date;
+    formSubmitBtn.textContent = "Edit transaction";
+  });
+
+
+  deleteButtonElement.addEventListener("click", () => {
     deleteTransaction(transaction.id);
-  })
+  });
+
+  
   rightEl.appendChild(amountElement);
-  rightEl.appendChild(buttonElement);
+  rightEl.appendChild(deleteButtonElement);
+  rightEl.appendChild(editButtonElement);
 
   el.appendChild(leftEl);
   el.appendChild(rightEl);
@@ -81,10 +111,7 @@ function transactionElement(transaction) {
 
 function deleteTransaction(id){
   transactions = transactions.filter(transaction => transaction.id !== id);
-  renderTransactions();
-  saveTransactions();
-  updateSummaryCards();
-  renderChart();
+  syncUI();
 }
 
 
@@ -205,6 +232,14 @@ function clearErrors(){
   dateError.textContent = '';
 }
 
+
+/**Sync UI */
+function syncUI() {
+  saveTransactions();
+  renderTransactions();
+  updateSummaryCards();
+  renderChart();
+}
 
 
 
