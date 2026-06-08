@@ -247,6 +247,20 @@ body{
     font-weight: 700;
 }
 
+.empty-state{
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-state h3{
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p{
+    color: var(--text-secondary);
+}
+
 .transaction-info h4{
     color: var(--text-primary);
 }

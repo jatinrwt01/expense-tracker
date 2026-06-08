@@ -51,11 +51,25 @@ form.addEventListener("submit", (e) => {
 
 function renderTransactions() {
   transactionList.innerHTML = "";
+  if(transactions.length === 0){
+    const emptyStateElement = document.createElement('div');
+    const headingElement = document.createElement('h3');
+    const subHeadElement = document.createElement('p');
+    emptyStateElement.classList.add('empty-state');
+    headingElement.textContent = `No transactions yet`;
+    subHeadElement.textContent = `Add your first expense to get started`;
+    emptyStateElement.appendChild(headingElement);
+    emptyStateElement.appendChild(subHeadElement);
+
+    transactionList.appendChild(emptyStateElement);
+    return;
+  } 
   transactions.forEach((transaction) => {
     const transactionItem = transactionElement(transaction);
     transactionList.append(transactionItem);
   });
 }
+
 
 function transactionElement(transaction) {
   const el = document.createElement("li");
