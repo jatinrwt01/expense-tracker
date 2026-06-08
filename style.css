@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+/*Light mode variables*/
 :root{
     /* Backgrounds */
     --background-color: #F5F7FA;
     --card-background: #FFFFFF;
-    --sidebar-background: #111827;
+    --sidebar-background: #1F2937;
 
     /* Primary Brand */
     --primary-color: #22C55E;
@@ -28,6 +30,22 @@
 
     /* Radius */
     --radius-md: 12px;
+}
+
+/*Dark mode variables*/
+body.dark-mode{
+    --background-color: #111827;
+    --card-background: #1F2937;
+    --sidebar-background: #0F172A;
+
+    --text-primary: #F9FAFB;
+    --text-secondary: #9CA3AF;
+
+    --border-color: #374151;
+
+    --hover-color: #2D3748;
+
+    --card-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 
@@ -96,6 +114,7 @@ body{
 
 .top-navbar h1{
       font-weight: 700;
+      color: var(--text-primary);
 }
 
 .navbar-actions{
@@ -107,14 +126,21 @@ body{
     border: none;
 }
 
-
-.dark-mode-toggle,
-.user-profile,
-.notification{
-    height: 25px;
-    width: 25px;
+.navbar-actions button{
+    background: none;
+    border: none;
     cursor: pointer;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.navbar-actions svg{
+    width: 22px;
+    height: 22px;
+}
+
 
 /*Section1- Summary Cards*/
 .summary-cards{
@@ -131,6 +157,9 @@ body{
     min-width: 250px;
     font-size: 1.4rem;
      font-weight: 700;
+     background-color: var(--card-background);
+    color: var(--text-primary);
+    box-shadow: var(--card-shadow);
 }
 
 .balance-card{
@@ -218,6 +247,19 @@ body{
     font-weight: 700;
 }
 
+.transaction-info h4{
+    color: var(--text-primary);
+}
+
+.transaction-info p{
+    color: var(--text-secondary);
+}
+
+.transaction-actions span{
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
 .transaction-item{
     display: flex;
     align-items: center;
@@ -261,6 +303,8 @@ select{
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
+    background-color: var(--card-background);
+    color: var(--text-primary);
 }
 
 /*Button styling*/
@@ -280,7 +324,7 @@ select{
 
 /*Form Validation*/
 .error-message{
-    color: red;
+    color: var(--expense-color);
     font-size: 0.85rem;
     margin-left: 10px;
     min-height: 18px;

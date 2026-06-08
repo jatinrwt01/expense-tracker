@@ -24,9 +24,17 @@
       <header class="top-navbar">
         <h1>Expense Tracker Dashboard</h1>
         <div class="navbar-actions">
-        <button><img class="dark-mode-toggle " src="assets/icons/darkmode.svg" alt="darkmode"></button>
-       <button><img class="user-profile" src="assets/icons/usericon.png" alt="profile"></button>
-      <button><img class="notification" src="assets/icons/notificationicon.png" alt="notification"></button>  
+        <button id="theme-toggle">
+        <i data-lucide="moon"></i>
+        </button>
+
+        <button>
+         <i data-lucide="bell"></i>
+        </button>
+
+        <button>
+        <i data-lucide="user"></i>
+        </button>
       </div>
       </header>
 
@@ -101,6 +109,7 @@
       </section>
     </main>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
   </body>

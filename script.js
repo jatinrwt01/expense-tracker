@@ -141,6 +141,15 @@ function saveTransactions(){
   localStorage.setItem("transactions", transactionString);
 }
 
+function saveTheme(){
+  if(document.body.classList.contains('dark-mode')){
+      localStorage.setItem("theme", 'dark');
+  } else{
+    localStorage.setItem("theme", 'light');
+  }
+}
+
+
 
 /*===Load from localStorage===*/
 function loadTransactions(){
@@ -154,6 +163,13 @@ function loadTransactions(){
   renderTransactions();
   updateSummaryCards();
   renderChart();
+}
+
+function loadTheme(){
+  const theme = localStorage.getItem("theme");
+  if(theme === 'dark'){
+    document.body.classList.add('dark-mode');
+  }
 }
 
 
@@ -242,6 +258,18 @@ function syncUI() {
 }
 
 
+/*Dark mode logic*/
+const themeToggleBtn = document.getElementById('theme-toggle');
+function toggleTheme(){
+  themeToggleBtn.addEventListener('click', ()=>{
+    document.body.classList.toggle('dark-mode');
+    saveTheme();
+  });
+}
+toggleTheme();
 
 
+loadTheme();
 loadTransactions();
+
+lucide.createIcons();
