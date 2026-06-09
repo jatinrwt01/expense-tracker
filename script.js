@@ -158,8 +158,10 @@ function saveTransactions(){
 function saveTheme(){
   if(document.body.classList.contains('dark-mode')){
       localStorage.setItem("theme", 'dark');
+      localStorage.setItem("icon", 'sun');
   } else{
     localStorage.setItem("theme", 'light');
+    localStorage.setItem("icon", 'moon');
   }
 }
 
@@ -183,6 +185,9 @@ function loadTheme(){
   const theme = localStorage.getItem("theme");
   if(theme === 'dark'){
     document.body.classList.add('dark-mode');
+    document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+  } else{
+    document.getElementById('theme-icon').setAttribute('data-lucide', 'moon');
   }
 }
 
@@ -277,6 +282,14 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 function toggleTheme(){
   themeToggleBtn.addEventListener('click', ()=>{
     document.body.classList.toggle('dark-mode');
+    if(document.body.classList.contains('dark-mode')){
+      document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+      lucide.createIcons();
+    } else{
+      document.getElementById('theme-icon').setAttribute('data-lucide', 'moon');
+      lucide.createIcons();
+    }
+
     saveTheme();
   });
 }
