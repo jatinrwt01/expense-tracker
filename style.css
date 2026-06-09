@@ -343,3 +343,72 @@ select{
     margin-left: 10px;
     min-height: 18px;
 }
+
+
+
+
+/*======RESPONSIVE DESIGN====*/
+
+@media (max-width: 1050px){
+    .transaction-item{
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px)  {
+    body{
+        flex-direction: column;
+    }
+     .sidebar{
+      min-height: auto;
+      padding: 0.5rem;
+      width: 100%;
+   }
+
+     .logo{
+        display: none;
+     }
+
+     .sidebar-nav ul{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0;
+     }
+
+    .sidebar-nav li{
+    padding: 6px;
+    font-size: 14px;
+}
+
+    .top-navbar{
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+    .summary-cards{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .card{
+        width: 100%;
+        max-width: 350px;
+        min-width: unset;
+    }
+
+    .bottom-section{
+        grid-template-columns: 1fr;
+    }
+
+     .transaction-item{
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
+
