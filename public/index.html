@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker & Financial Insights</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="logo"><img src="assets/images/logo.png" alt="SpendWise Logo" /></div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active"><i data-lucide="layout-dashboard"></i> Dashboard</li>
+          <li id="nav-transactions"><i data-lucide="receipt"></i> Transactions</li>
+          <li id="nav-analytics"><i data-lucide="pie-chart"></i> Analytics</li>
+          <li id="nav-budget"><i data-lucide="wallet"></i> Budget & Limits</li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="status-indicator online"></span> MongoDB Connected
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-navbar">
+        <div class="navbar-title">
+          <h1>Expense Tracker Dashboard</h1>
+          <p class="navbar-subtitle">Track, budget, and gain spending insights</p>
+        </div>
+        <div class="navbar-actions">
+          <button id="theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+            <i id="theme-icon" data-lucide="moon"></i>
+          </button>
+          <button id="quick-budget-btn" class="action-btn" title="Set Monthly Budget">
+            <i data-lucide="wallet"></i>
+            <span>Set Budget</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="summary-cards">
+        <div class="card balance-card">
+          <div class="card-header-icon">
+            <i data-lucide="scale"></i>
+          </div>
+          <h3>Total Balance</h3>
+          <p id="total-balance">₹0.00</p>
+          <span class="card-hint">Net savings across all time</span>
+        </div>
+
+        <div class="card income-card">
+          <div class="card-header-icon">
+            <i data-lucide="trending-up"></i>
+          </div>
+          <h3>Total Income</h3>
+          <p id="total-income">₹0.00</p>
+          <span class="card-hint">Total earnings recorded</span>
+        </div>
+
+        <div class="card expense-card">
+          <div class="card-header-icon">
+            <i data-lucide="trending-down"></i>
+          </div>
+          <h3>Total Expense</h3>
+          <p id="total-expense">₹0.00</p>
+          <span class="card-hint">Total spending recorded</span>
+        </div>
+
+        <div class="card budget-card">
+          <div class="card-header-icon">
+            <i data-lucide="target"></i>
+          </div>
+          <div class="budget-card-title-row">
+            <h3>Monthly Budget</h3>
+            <span id="budget-status-badge" class="badge badge-notset">Not Set</span>
+          </div>
+          <p id="card-monthly-budget">₹0.00</p>
+          <span id="card-budget-remaining-text" class="card-hint">Click 'Set Budget' to configure</span>
+        </div>
+      </section>
+
+
+      <section class="budget-insights-section">
+        <div class="budget-tracker-card">
+          <div class="section-title-row">
+            <div>
+              <h2>Budget Pace & Utilization</h2>
+              <span class="subtext" id="budget-month-label">Current Month</span>
+            </div>
+            <button id="edit-budget-btn" class="btn-text">
+              <i data-lucide="edit-3"></i> Edit Limit
+            </button>
+          </div>
+
+          <div class="budget-progress-container">
+            <div class="budget-progress-bar-bg">
+              <div id="budget-progress-bar" class="budget-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="budget-stats-row">
+            <div>
+              <span class="stat-label">Spent This Month</span>
+              <strong id="budget-spent-val" class="stat-value">₹0.00</strong>
+            </div>
+            <div>
+              <span class="stat-label">Remaining</span>
+              <strong id="budget-remaining-val" class="stat-value text-success">₹0.00</strong>
+            </div>
+            <div>
+              <span class="stat-label">Usage</span>
+              <strong id="budget-pct-val" class="stat-value">0%</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="insights-card">
+          <div class="section-title-row">
+            <div>
+              <h2>Spending Insights</h2>
+              <span class="subtext">Deterministic financial analysis</span>
+            </div>
+            <span class="engine-tag"><i data-lucide="cpu"></i> Analytics Engine</span>
+          </div>
+
+          <div class="insights-metrics-grid">
+            <div class="insight-mini-pill">
+              <span class="pill-label">Top Category</span>
+              <strong id="insight-top-cat">None</strong>
+            </div>
+            <div class="insight-mini-pill">
+              <span class="pill-label">Daily Average</span>
+              <strong id="insight-daily-avg">₹0/day</strong>
+            </div>
+            <div class="insight-mini-pill">
+              <span class="pill-label">Largest Expense</span>
+              <strong id="insight-largest-exp">₹0</strong>
+            </div>
+          </div>
+
+          <div class="insights-feed">
+            <ul id="insight-messages" class="insight-message-list">
+              <li><i data-lucide="info"></i> Calculating monthly spending insights...</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="analytics">
+        <div class="chart-card">
+          <div class="chart-header">
+            <div>
+              <h2>Category Expense Analytics</h2>
+              <p class="chart-subtitle">Breakdown of expenses by category</p>
+            </div>
+            <div id="chart-legend-summary" class="chart-legend-summary"></div>
+          </div>
+          <div class="chart-body">
+            <canvas id="expense-chart"></canvas>
+            <div id="chart-empty-state" class="chart-empty-state" style="display: none;">
+              <i data-lucide="pie-chart"></i>
+              <p>Add expense records to visualize category distributions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-section">
+        <section class="transactions">
+          <div class="transaction-header">
+            <div>
+              <h2>Recent Transactions</h2>
+              <span class="subtext" id="tx-count-label">0 transactions</span>
+            </div>
+            <div class="tx-filters">
+              <select id="tx-filter-type" class="filter-select">
+                <option value="">All Types</option>
+                <option value="expense">Expenses Only</option>
+                <option value="income">Income Only</option>
+              </select>
+            </div>
+          </div>
+
+          <ul class="transaction-list">
+          </ul>
+        </section>
+
+        <section class="add-expense">
+          <div class="expense-header">
+            <h2 id="form-heading">Add Transaction</h2>
+            <p class="subtext">Log new earnings or spending</p>
+          </div>
+          
+          <form class="expense-form" id="expense-form" novalidate>
+            <div class="type-switcher">
+              <label class="type-btn active" id="type-expense-label">
+                <input type="radio" name="transaction-type" value="expense" checked />
+                <span><i data-lucide="arrow-down-right"></i> Expense</span>
+              </label>
+              <label class="type-btn" id="type-income-label">
+                <input type="radio" name="transaction-type" value="income" />
+                <span><i data-lucide="arrow-up-right"></i> Income</span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <input id="expense-title" type="text" placeholder="Transaction Title (e.g. Groceries)" required />
+              <p class="error-message" id="title-error"></p>
+            </div>
+
+            <div class="form-group">
+              <input id="amount" type="number" placeholder="Amount (₹)" min="0.01" step="any" required />
+              <p class="error-message" id="amount-error"></p>
+            </div>
+
+            <div class="form-group" id="category-container">
+              <select id="category" required>
+                <option value="Food">Food & Dining</option>
+                <option value="Transport">Transport & Fuel</option>
+                <option value="Bills">Bills & Utilities</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Education">Education</option>
+                <option value="Salary">Salary / Earnings</option>
+                <option value="Investment">Investment</option>
+                <option value="Other" selected>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <input id="date" type="date" required />
+              <p class="error-message" id="date-error"></p>
+            </div>
+
+            <div class="form-group">
+              <input id="notes" type="text" placeholder="Optional notes / description" maxlength="250" />
+            </div>
+
+            <div class="form-actions-row">
+              <button id="submit-form" class="btn" type="submit">
+                <i data-lucide="plus-circle"></i> <span>Add Transaction</span>
+              </button>
+              <button id="cancel-edit-btn" class="btn btn-secondary" type="button" style="display: none;">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <div id="budget-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3>Set Monthly Budget</h3>
+          <button id="close-budget-modal" class="close-btn">&times;</button>
+        </div>
+        <form id="budget-form">
+          <p class="modal-help">Define your overall spending limit for the month. This powers the real-time budget status and spending insights.</p>
+          <div class="form-group">
+            <label for="budget-month-input">Month</label>
+            <input type="month" id="budget-month-input" required />
+          </div>
+          <div class="form-group">
+            <label for="budget-amount-input">Budget Amount (₹)</label>
+            <input type="number" id="budget-amount-input" placeholder="e.g. 30000" min="1" step="any" required />
+            <p class="error-message" id="budget-modal-error"></p>
+          </div>
+          <div class="modal-actions">
+            <button type="button" id="cancel-budget-btn" class="btn btn-secondary">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Budget</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/api.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+[build]
+  publish = "public"
+
+# Proxy API requests from Netlify to the Render backend
+[[redirects]]
+  from = "/api/*"
+  to = "https://penny-wise-expense-tracker.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# Single Page App routing fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
